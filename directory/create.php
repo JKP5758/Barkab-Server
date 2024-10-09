@@ -1,5 +1,14 @@
 <?php
+session_start();
+
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['nis'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
+
 $rootDirectory = 'C:\\xampp\\htdocs\\server-data\\';
+$defaultDir = $_SESSION['directory'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $relativePath = isset($_POST['directory']) ? $_POST['directory'] : '';

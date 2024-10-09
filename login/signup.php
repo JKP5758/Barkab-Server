@@ -41,6 +41,10 @@
 			      			<input type="text" class="form-control" required name="nama">
 			      			<label class="form-control-placeholder" for="nama">Nama</label>
 			      		</div>
+			      		<div class="form-group mt-3">
+			      			<input type="text" class="form-control" required name="directory">
+			      			<label class="form-control-placeholder" for="directory">Nama Direktori</label>
+			      		</div>
 		            <div class="form-group">
 		              <input id="password-field" type="password" class="form-control" required name="password">
 		              <label class="form-control-placeholder" for="password">Password</label>
