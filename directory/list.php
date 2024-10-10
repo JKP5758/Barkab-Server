@@ -22,29 +22,28 @@ if (strpos($directory, $rootDirectory . $defaultDir) !== 0) {
     $directory = $rootDirectory . $defaultDir;
     $relativePath = $defaultDir;
 }
+?>
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar File dan Direktori</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<?php
 // Pastikan direktori ada
 if (is_dir($directory)) {
     echo "<h1>Daftar File dan Direktori</h1>";
     
-    echo "<p>Selamat datang, " . htmlspecialchars($_SESSION['nis']) . "! <a href='../login/logout.php'>Logout</a></p>";
+    echo "<div class='sambutan'>Selamat datang, " . htmlspecialchars($_SESSION['nama']) . "! <a class='logout' href='../login/logout.php'>Logout</a></div>";
     
     echo "<p>Direktori saat ini: " . htmlspecialchars($relativePath) . "</p>";
-    
-    // Tombol untuk membuat folder baru
-    echo "<form action='create.php' method='post' style='display:inline;'>
-            <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-            <input type='hidden' name='type' value='folder'>
-            <input type='submit' value='+ /folder'>
-          </form>";
-    
-    // Tombol untuk membuat file baru
-    echo "<form action='create.php' method='post' style='display:inline;'>
-            <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-            <input type='hidden' name='type' value='file'>
-            <input type='submit' value='+ .txt'>
-          </form>";
-    
+
+    echo "<div class='upload-item'>";
     // Form untuk upload file
     echo "<form action='upload.php' method='post' enctype='multipart/form-data'>
             <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
@@ -58,7 +57,24 @@ if (is_dir($directory)) {
             <input type='file' name='zipfile' accept='.zip'>
             <input type='submit' value='Upload ZIP'>
           </form>";
+    echo "</div>";
+
+    echo "<div class='tambah-item'>";
+    // Tombol untuk membuat folder baru
+    echo "<form action='create.php' method='post' style='display:inline;'>
+            <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+            <input type='hidden' name='type' value='folder'>
+            <input type='submit' value='Buat Folder'>
+          </form>";
     
+    // Tombol untuk membuat file baru
+    echo "<form action='create.php' method='post' style='display:inline;'>
+            <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+            <input type='hidden' name='type' value='file'>
+            <input type='submit' value='Buat File'>
+          </form>";
+    echo "</div>";
+
     // Periksa apakah ada file di direktori
     $hasFiles = false;
     $dirItems = scandir($directory);
@@ -75,11 +91,11 @@ if (is_dir($directory)) {
     if ($hasFiles) {
         echo "<input type='submit' id='downloadButton' value='Download Semua File'>";
     }
-    echo "<input type='submit' id='deleteButton' value='Hapus File Dipilih' formaction='delete.php' style='display:none;'>";
     echo "<input type='submit' id='cutButton' value='Pindahkan' formaction='move.php?action=cut' style='display:none;'>";
     echo "<input type='submit' id='copyButton' value='Salin' formaction='move.php?action=copy' style='display:none;'>";
     echo "<input type='submit' id='pasteButton' value='Tempel' formaction='move.php?action=paste' style='display:none;'>";
     echo "<input type='submit' id='cancelButton' value='Batal' formaction='move.php?action=cancel' style='display:none;'>";
+    echo "<input type='submit' id='deleteButton' value='Hapus File Dipilih' formaction='delete.php' style='display:none;'>";
     echo "</form>";
     
     // Tambahkan ini sebelum menampilkan daftar file dan folder
@@ -87,12 +103,21 @@ if (is_dir($directory)) {
 
     // Membuka direktori
     if ($handle = opendir($directory)) {
+        echo "<div class='file-list'>";
         echo "<ul>";
 
         // Menambahkan link "../" untuk kembali ke direktori sebelumnya
         $parentDir = dirname($relativePath);
         if ($parentDir != $relativePath && $parentDir != '.') {
-            echo "<li><a href='list.php?directory=" . urlencode($parentDir) . "'><strong>../</strong></a> (Direktori Sebelumnya)</li>";
+            echo "<li class='parent-dir'>
+                    <div class='item-wrapper'>
+                        <a href='list.php?directory=" . urlencode($parentDir) . "' class='item-link'>
+                            <div class='name-file-folder'>
+                                <strong>../</strong> (Direktori Sebelumnya)
+                            </div>
+                        </a>
+                    </div>
+                  </li>";
         }
 
         // Membaca semua file dan direktori di dalamnya
@@ -104,18 +129,26 @@ if (is_dir($directory)) {
                 $entryRelativePath = $relativePath . '\\' . $entry;
                 if (is_dir($path)) {
                     echo "<li>
-                            <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
-                            <a href='list.php?directory=" . urlencode($entryRelativePath) . "' class='item-link'><strong>$entry</strong></a> (Direktori)
-                            <form action='rename.php' method='post' style='display:inline;'>
-                                <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-                                <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
-                                <input type='submit' value='Rename' class='item-action'>
-                            </form>
-                            <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus folder ini?\");'>
-                                <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-                                <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
-                                <input type='submit' value='Hapus' class='item-action'>
-                            </form>
+                            <div class='item-wrapper'>
+                                <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
+                                <a href='list.php?directory=" . urlencode($entryRelativePath) . "' class='item-link'>
+                                    <div class='name-file-folder'>
+                                        <strong>$entry</strong> (Direktori)
+                                    </div>
+                                </a>
+                            </div>
+                            <div class='action'>
+                                <form action='rename.php' method='post' style='display:inline;'>
+                                    <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                    <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                    <input type='submit' value='Rename' class='item-action'>
+                                </form>
+                                <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus folder ini?\");'>
+                                    <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                    <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                    <input type='submit' value='Hapus' class='item-action'>
+                                </form>
+                            </div>
                           </li>";
                 } else {
                     $fileExtension = strtolower(pathinfo($entry, PATHINFO_EXTENSION));
@@ -123,33 +156,49 @@ if (is_dir($directory)) {
                     
                     if (in_array($fileExtension, $editableExtensions)) {
                         echo "<li>
-                                <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
-                                <a href='edit.php?file=" . urlencode($entryRelativePath) . "' class='item-link'>$entry</a> (File)
-                                <form action='rename.php' method='post' style='display:inline;'>
-                                    <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-                                    <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
-                                    <input type='submit' value='Rename' class='item-action'>
-                                </form>
-                                <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus file ini?\");'>
-                                    <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-                                    <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
-                                    <input type='submit' value='Hapus' class='item-action'>
-                                </form>
+                                <div class='item-wrapper'>
+                                    <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
+                                    <a href='edit.php?file=" . urlencode($entryRelativePath) . "' class='item-link'>
+                                        <div class='name-file-folder'>
+                                            <span>$entry</span> (File)
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class='action'>
+                                    <form action='rename.php' method='post' style='display:inline;'>
+                                        <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                        <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                        <input type='submit' value='Rename' class='item-action'>
+                                    </form>
+                                    <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus file ini?\");'>
+                                        <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                        <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                        <input type='submit' value='Hapus' class='item-action'>
+                                    </form>
+                                </div>
                               </li>";
                     } else {
                         echo "<li>
-                                <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
-                                $entry (File)
-                                <form action='rename.php' method='post' style='display:inline;'>
-                                    <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-                                    <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
-                                    <input type='submit' value='Rename' class='item-action'>
-                                </form>
-                                <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus file ini?\");'>
-                                    <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
-                                    <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
-                                    <input type='submit' value='Hapus' class='item-action'>
-                                </form>
+                                <div class='item-wrapper'>
+                                    <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
+                                    <a href='#' class='item-link'>
+                                        <div class='name-file-folder'>
+                                            $entry (File)
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class='action'>
+                                    <form action='rename.php' method='post' style='display:inline;'>
+                                        <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                        <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                        <input type='submit' value='Rename' class='item-action'>
+                                    </form>
+                                    <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus file ini?\");'>
+                                        <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                        <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                        <input type='submit' value='Hapus' class='item-action'>
+                                    </form>
+                                </div>
                               </li>";
                     }
                 }
@@ -157,6 +206,7 @@ if (is_dir($directory)) {
         }
 
         echo "</ul>";
+        echo "</div>";
         closedir($handle); // Menutup direktori
     } else {
         echo "Tidak bisa membuka direktori.";
@@ -170,6 +220,9 @@ $clipboardStatus = isset($_SESSION['clipboard']) ? json_encode($_SESSION['clipbo
 $selectedItemsJson = json_encode($selectedItems);
 $hasFilesJson = json_encode($hasFiles);
 ?>
+
+</body>
+</html>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

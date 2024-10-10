@@ -32,20 +32,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+    // Buat nama database
+    $dbName = "db_barkab-server_" . $nis;
+
     // Siapkan pernyataan SQL untuk menyimpan data
-    $sql = "INSERT INTO users (nis, nama, directory, password) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO users (nis, nama, directory, password, db) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($koneksi, $sql);
 
     if ($stmt) {
         // Bind parameter
-        mysqli_stmt_bind_param($stmt, "ssss", $nis, $nama, $directory, $hashedPassword);
+        mysqli_stmt_bind_param($stmt, "sssss", $nis, $nama, $directory, $hashedPassword, $dbName);
 
         // Eksekusi pernyataan
         if (mysqli_stmt_execute($stmt)) {
             // Buat direktori untuk pengguna
             if (mkdir($userDir, 0777, true)) {
-                echo "Pendaftaran berhasil dan direktori telah dibuat!";
-                header("Location: index.php");
+                // Buat database baru
+                $createDbSql = "CREATE DATABASE `$dbName`";
+                if (mysqli_query($koneksi, $createDbSql)) {
+                    // Buat user MySQL baru
+                    $createUserSql = "CREATE USER '$nis'@'%' IDENTIFIED BY '$password'";
+                    if (mysqli_query($koneksi, $createUserSql)) {
+                        // Berikan hak akses ke database baru
+                        $grantSql = "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, CREATE VIEW, EVENT, TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON `$dbName`.* TO '$nis'@'%'";
+                        if (mysqli_query($koneksi, $grantSql)) {
+                            echo "Pendaftaran berhasil, direktori dan database telah dibuat!";
+                            header("Location: index.php");
+                        } else {
+                            echo "Pendaftaran berhasil, tapi gagal memberikan hak akses database.";
+                        }
+                    } else {
+                        echo "Pendaftaran berhasil, tapi gagal membuat user MySQL.";
+                    }
+                } else {
+                    echo "Pendaftaran berhasil, tapi gagal membuat database.";
+                }
             } else {
                 echo "Pendaftaran berhasil, tapi gagal membuat direktori.";
             }

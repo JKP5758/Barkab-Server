@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Siapkan pernyataan SQL untuk mengambil data pengguna berdasarkan nis
-    $sql = "SELECT password, directory FROM users WHERE nis = ?";
+    $sql = "SELECT password, directory, db, nama FROM users WHERE nis = ?";
     $stmt = mysqli_prepare($koneksi, $sql);
 
     if ($stmt) {
@@ -33,14 +33,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_execute($stmt);
 
         // Ambil hasil
-        mysqli_stmt_bind_result($stmt, $hashedPassword, $userDirectory);
+        mysqli_stmt_bind_result($stmt, $hashedPassword, $userDirectory, $userDb, $userName);
         mysqli_stmt_fetch($stmt);
 
         // Cek password
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['nis'] = $nis; // Simpan NIS dalam sesi
             $_SESSION['directory'] = $userDirectory; // Simpan direktori dalam sesi
-            echo "Login berhasil! Selamat datang, " . htmlspecialchars($nis) . ".";
+            $_SESSION['db'] = $userDb; // Simpan nama database dalam sesi
+            $_SESSION['nama'] = $userName; // Simpan nama pengguna dalam sesi
+            echo "Login berhasil! Selamat datang, " . htmlspecialchars($userName) . ".";
             // Redirect ke halaman list
             echo "<script>location.href='../directory/list.php';</script>";
         } else {
