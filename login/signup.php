@@ -2,72 +2,56 @@
     session_start();
     require "../koneksi.php";
 
-    if (isset($_SESSION['id'])) {
+    if (isset($_SESSION['nis'])) {
         echo "<script>alert('Anda Telah Login');window.location='../view/dashboard/';</script>";
     }
 ?>
 
 <!doctype html>
 <html lang="en">
-  <head>
-  	<title>SignUp</title>
+<head>
+    <title>SignUp</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css"> <!-- Menggunakan style.css yang sama -->
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container"> <!-- Menggunakan kelas yang sama -->
+        <div class="login-box">
+            <div class="image-container">
+                <img src="../login/images/hd4.jpg" alt="Classroom">
+            </div>
+            <form class="login-form" action="proses_signup.php" method="post"> <!-- Menggunakan kelas yang sama -->
+                <h2>Sign Up</h2> <!-- Mengubah judul untuk konsistensi -->
+                <div class="input-group">
+                    <label for="nis">NIS</label>
+                    <input type="text" id="nis" name="nis" required placeholder="">
+                </div>
+                <div class="input-group">
+                    <label for="nama">Nama</label>
+                    <input type="text" id="nama" name="nama" required placeholder="">
+                </div>
+                <div class="input-group">
+                    <label for="directory">Nama Direktori</label>
+                    <input type="text" id="directory" name="directory" required placeholder="">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input id="password-field" type="password" name="password" required placeholder="">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Sign Up</button>
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<link rel="stylesheet" href="css/style.css">
+                <div class="create-account">
+                    <p class="text-center">Sudah Punya Akun? <a href="index.php">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
 
-	</head>
-	<body>
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-7 col-lg-5">
-					<div class="wrap">
-						<div class="img" style="background-image: url(images/hd4.jpg);"></div>
-						<div class="login-wrap p-4 p-md-5">
-			      	<div class="d-flex">
-			      		<div class="w-100">
-			      			<h3 class="mb-4">SignUp</h3>
-							<form action="proses_signup.php" method="post" class="signin-form">
-						<div class="form-group mt-3">
-			      			<input type="text" class="form-control" required name="nis">
-			      			<label class="form-control-placeholder" for="nis">NIS</label>
-			      		</div>
-			      		<div class="form-group mt-3">
-			      			<input type="text" class="form-control" required name="nama">
-			      			<label class="form-control-placeholder" for="nama">Nama</label>
-			      		</div>
-			      		<div class="form-group mt-3">
-			      			<input type="text" class="form-control" required name="directory">
-			      			<label class="form-control-placeholder" for="directory">Nama Direktori</label>
-			      		</div>
-		            <div class="form-group">
-		              <input id="password-field" type="password" class="form-control" required name="password">
-		              <label class="form-control-placeholder" for="password">Password</label>
-		              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-		            </div>
-		            <div class="form-group">
-		            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">SignUp</button>
-		            </div>
-		            
-		          </form>
-		          <p class="text-center">Sudah Punya Akun? <a href="index.php">Login</a></p>
-		        </div>
-		      </div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<script src="js/jquery.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-
-	</body>
+</body>
 </html>
 

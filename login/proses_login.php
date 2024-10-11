@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['nama'] = $userName; // Simpan nama pengguna dalam sesi
             echo "Login berhasil! Selamat datang, " . htmlspecialchars($userName) . ".";
             // Redirect ke halaman list
-            echo "<script>location.href='../directory/list.php';</script>";
+            echo "<script>location.href='../view/dashboard';</script>";
         } else {
             echo "NIS atau password salah!";
         }

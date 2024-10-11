@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.create-account p a:hover{
+    text-decoration: none;
+}
+
+
+.login-container {
+    width: 460px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.login-box {
+    
+}
+
+.login-form {
+    padding: 40px;
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(0 0 0 / 75%);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: rgb(0 0 0 / 75%);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Warna border default */
+    border-radius: 5px;
+    color: #495057;
+    font-size: 16px;
+    font-family: "Lato", Arial, sans-serif;
+    transition: border 0.2s ease; /* Transisi untuk perubahan border */
+}
+
+/* Gaya saat Input dalam Fokus */
+.input-group input:focus {
+    border: 1px solid #33cc66; /* Warna dan ketebalan border saat fokus */
+    outline: none; /* Menghilangkan outline default */
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex-grow: 1;
+}
+
+.password-container .toggle-password {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px;
+    user-select: none;
+}
+
+.options {
+    display: flex;
+    margin-top: 20px;
+}
+
+.options a {
+    color: gray;
+    text-decoration: none;
+}
+
+p {
+    color: gray;
+}
+
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #01d28e ;
+    border: 1px solid #01d28e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #00c267;
+}
+
+.create-account {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.create-account a {
+    color: #01d28e;
+    text-decoration: none;
+}
+
+.create-account a:hover {
+    text-decoration: underline;
+}
+
+/* Media Query untuk Layar Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .login-container {
+        max-width: 90%; /* Lebar 90% dari viewport */
+        margin: 20px auto;
+    }
+
+    .login-box .login-form{
+        padding: 30px; /* Kurangi padding pada layar lebih kecil */
+    }
+
+    .input-group input {
+        padding: 8px; /* Kurangi padding di elemen input */
+    }
+
+    .btn {
+        padding: 10px; /* Sesuaikan tombol login */
+    }
+}
+
+@media (min-width: 578px) {
+    .login-container{
+        max-width: 540px;
+    }
+}
+
+/* Media Query untuk Layar Ponsel (max-width: 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .login-container {
+        max-width: 95%; /* Lebar hampir penuh untuk ponsel */
+    }
+
+    .login-box .login-form{
+        padding: 20px;
+    }
+
+    .input-group input {
+        padding: 8px;
+        font-size: 14px; /* Ukuran font lebih kecil di layar ponsel */
+    }
+
+    .btn {
+        padding: 10px;
+        font-size: 14px; /* Ukuran tombol lebih kecil di ponsel */
+    }
+
+    .create-account {
+        font-size: 12px; /* Ukuran teks yang lebih kecil di bawah */
+    }
+
+    /* Sesuaikan ukuran teks jika terlalu besar */
+    .login-form h2 {
+        font-size: 18px;
+    }
+}
