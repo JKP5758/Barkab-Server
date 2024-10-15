@@ -1,5 +1,7 @@
 <?php
-$rootDirectory = 'C:\\xampp\\htdocs\\server-data\\';
+$envVars = parse_ini_file('../../.env');
+
+$rootDirectory = $envVars['ROOT_DIR'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $relativePath = isset($_POST['directory']) ? $_POST['directory'] : '';

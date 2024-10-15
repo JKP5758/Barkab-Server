@@ -1,5 +1,8 @@
 <?php
-$rootDirectory = 'C:\\xampp\\htdocs\\server-data\\';
+
+$envVars = parse_ini_file('../../.env');
+
+$rootDirectory = $envVars['ROOT_DIR'];
 
 // Memeriksa apakah parameter file ada
 if (isset($_GET['file'])) {

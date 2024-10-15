@@ -1,5 +1,6 @@
 <?php
 session_start();
+$envVars = parse_ini_file('../../.env');
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
@@ -8,8 +9,7 @@ if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
 }
 
 // Tentukan direktori awal (root)
-$rootDirectory = 'C:\\xampp\\htdocs\\server-data\\';
-
+$rootDirectory = $envVars["ROOT_DIR"];
 // Menggunakan direktori dari sesi sebagai direktori default
 $defaultDir = $_SESSION['directory'];
 
@@ -79,11 +79,12 @@ if (is_dir($directory)) {
     $hasFiles = false;
     $dirItems = scandir($directory);
     foreach ($dirItems as $item) {
-        if ($item != "." && $item != ".." && is_file($directory . '\\' . $item)) {
+        if ($item != "." && $item != ".." && is_file($directory . '/' . $item)) {
             $hasFiles = true;
             break;
         }
     }
+
 
     // Form untuk download, hapus, pindah, dan salin file yang dipilih
     echo "<form action='download_all.php' method='post' id='fileForm'>";
@@ -125,8 +126,8 @@ if (is_dir($directory)) {
             // Mengabaikan . dan ..
             if ($entry != "." && $entry != "..") {
                 // Menampilkan setiap file/direktori
-                $path = $directory . "\\" . $entry; // Path lengkap ke file/direktori
-                $entryRelativePath = $relativePath . '\\' . $entry;
+                $path = $directory . "/" . $entry; // Path lengkap ke file/direktori
+                $entryRelativePath = $relativePath . '/' . $entry; // Jalur relatif menggunakan '/'
                 if (is_dir($path)) {
                     echo "<li>
                             <div class='item-wrapper'>

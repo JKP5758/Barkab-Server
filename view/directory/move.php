@@ -1,6 +1,8 @@
 <?php
 session_start();
-$rootDirectory = 'C:\\xampp\\htdocs\\server-data\\';
+$envVars = parse_ini_file('../../.env');
+
+$rootDirectory = $envVars['ROOT_DIR'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -32,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             foreach ($clipboard['items'] as $item) {
                 $sourcePath = $rootDirectory . $item;
-                $destPath = $destDir . '\\' . basename($item);
+                $destPath = $destDir . '/' . basename($item);
 
                 if ($clipboard['action'] == 'cut') {
                     rename($sourcePath, $destPath);

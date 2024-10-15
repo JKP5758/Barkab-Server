@@ -1,5 +1,6 @@
 <?php
 session_start();
+$envVars = parse_ini_file('../../.env');
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['nis'])) {
@@ -7,7 +8,7 @@ if (!isset($_SESSION['nis'])) {
     exit;
 }
 
-$rootDirectory = 'C:\\xampp\\htdocs\\server-data\\';
+$rootDirectory = $envVars['ROOT_DIR'];
 $defaultDir = $_SESSION['directory'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
