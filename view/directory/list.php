@@ -31,6 +31,7 @@ if (strpos($directory, $rootDirectory . $defaultDir) !== 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar File dan Direktori</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./img/logo-smk.png" type="image/png">
 </head>
 <body>
 
@@ -154,8 +155,33 @@ if (is_dir($directory)) {
                 } else {
                     $fileExtension = strtolower(pathinfo($entry, PATHINFO_EXTENSION));
                     $editableExtensions = ['txt', 'css', 'js', 'html', 'php', 'xml', 'json', 'md', 'log']; // Tambahkan ekstensi lain sesuai kebutuhan
-                    
-                    if (in_array($fileExtension, $editableExtensions)) {
+                    $mediaExtensions = ['png', 'jpg', 'jpeg', 'gif', 'mp4', 'mp3']; // Ekstensi media
+        
+                    // Check if the file is a media file
+                    if (in_array($fileExtension, $mediaExtensions)) {
+                        echo "<li>
+                                <div class='item-wrapper'>
+                                    <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
+                                    <a href='media.php?file=" . urlencode($entryRelativePath) . "' class='item-link'>
+                                        <div class='name-file-folder'>
+                                            <span>$entry</span> (Media)
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class='action'>
+                                    <form action='rename.php' method='post' style='display:inline;'>
+                                        <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                        <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                        <input type='submit' value='Rename' class='item-action'>
+                                    </form>
+                                    <form action='delete.php' method='post' style='display:inline;' onsubmit='return confirm(\"Anda yakin ingin menghapus file ini?\");'>
+                                        <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
+                                        <input type='hidden' name='item' value='" . htmlspecialchars($entryRelativePath) . "'>
+                                        <input type='submit' value='Hapus' class='item-action'>
+                                    </form>
+                                </div>
+                              </li>";
+                    } elseif (in_array($fileExtension, $editableExtensions)) {
                         echo "<li>
                                 <div class='item-wrapper'>
                                     <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
@@ -205,6 +231,7 @@ if (is_dir($directory)) {
                 }
             }
         }
+        
 
         echo "</ul>";
         echo "</div>";

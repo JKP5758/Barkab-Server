@@ -1,8 +1,15 @@
 <?php
 
+session_start();
 $envVars = parse_ini_file('../../.env');
 $rootDirectory = $envVars['ROOT_DIR'];
 
+
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
+    header("Location: ../../login/index.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +19,7 @@ $rootDirectory = $envVars['ROOT_DIR'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Editor</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./img/logo-smk.png" type="image/png">
 </head>
 <body>
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rename File</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./img/logo-smk.png" type="image/png">
 </head>
 <body>
 
@@ -50,6 +51,7 @@
                             <input type='hidden' name='item' value='" . htmlspecialchars($item) . "'>
                             <input type='text' name='new_name' value='" . htmlspecialchars($itemName) . "' class='rename-input'>
                             <input type='submit' value='Rename' class='rename-submit'>
+                            <a href='list.php?directory=" . urlencode($relativePath) . "'><button type='button' class='cancel-button'>Batal</button></a>
                           </form>";
                 }
             } else {
