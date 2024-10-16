@@ -108,3 +108,52 @@ h1 {
     }
 }
 
+.modal {
+    display: flex; /* Menyusun modal menggunakan flexbox */
+    position: fixed; /* Modal tetap pada posisi tetap */
+    z-index: 1; /* Agar modal berada di atas elemen lain */
+    left: 0; /* Mengatur posisi dari kiri */
+    top: 0; /* Mengatur posisi dari atas */
+    width: 100%; /* Lebar modal 100% dari viewport */
+    height: 100%; /* Tinggi modal 100% dari viewport */
+    overflow: auto; /* Jika konten modal lebih tinggi dari tampilan, scroll akan muncul */
+    background-color: rgb(0, 0, 0); /* Warna latar belakang gelap */
+    background-color: rgba(0, 0, 0, 0.4); /* Warna latar belakang dengan transparansi */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Warna latar belakang konten modal */
+    margin: auto; /* Mengatur margin otomatis agar konten berada di tengah */
+    padding: 20px; /* Padding di dalam konten modal */
+    border: 1px solid #888; /* Border untuk konten modal */
+    width: 80%; /* Lebar konten modal 80% dari modal */
+    max-width: 400px; /* Lebar maksimum konten modal */
+}
+
+.close {
+    color: #aaa; /* Warna teks untuk ikon close */
+    float: right; /* Mengatur ikon close ke kanan */
+    font-size: 28px; /* Ukuran font untuk ikon close */
+    font-weight: bold; /* Bold untuk ikon close */
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Mengubah warna ikon close saat hover/fokus */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    cursor: pointer; /* Mengubah kursor saat hover */
+}
+
+.modal-content p {
+    margin: 40px 0;
+}
+
+.modal-content a {
+    padding: 10px 15px; /* Padding untuk tombol OK */
+    background-color: #007BFF; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    border: none; /* Menghilangkan border tombol */
+    border-radius: 5px; /* Mengatur sudut tombol */
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+    text-decoration: none;
+}

@@ -1,10 +1,25 @@
 <?php
 session_start();
+$envVars = parse_ini_file('../../.env');
 
 if (!isset($_SESSION['nis'])) {
     echo "<script>location.href='../../login';</script>";
 }
 
+// Ambil protokol (http atau https)
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+// Ambil host (domain dan port jika ada)
+$host = $_SERVER['HTTP_HOST'];
+
+// Pisahkan host dan port, ambil hanya host (tanpa port)
+$hostWithoutPort = explode(':', $host)[0];
+
+// Gabungkan protokol dan host tanpa port
+$fullHostWithoutPort = $protocol . $hostWithoutPort;
+
+// Cetak URL host tanpa port
+// echo $fullHostWithoutPort;
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +29,10 @@ if (!isset($_SESSION['nis'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./img/logo-smk.png" type="image/png">
 </head>
 <body>
-    <nav><a href="../../login/logout.php">Logout</a></nav>
+    <nav><?php echo "<a class='logout' href='../../login/logout.php' onclick='return confirm(\"Anda yakin ingin logout?\");'>Logout</a>"; ?></nav>
     <h1>Selamat datang, <?=htmlspecialchars($_SESSION['nama'])?>!</h1>
 
     <div class="konten">
@@ -26,7 +42,7 @@ if (!isset($_SESSION['nis'])) {
                 <div class="card-content">
                     <h3>Lihat Web</h3>
                     <p>Kamu dapat Melihat Web buatan mu di sini.</p>
-                    <a href="#" class="btn">Kunjungi Web</a>
+                    <a href="<?=$fullHostWithoutPort.':'.$envVars['HOST_PORT'].'/'.$_SESSION['nis']?>" class="btn">Kunjungi Web</a>
                 </div>
             </div>
             <div class="card">
@@ -42,10 +58,29 @@ if (!isset($_SESSION['nis'])) {
                 <div class="card-content">
                     <h3>Lihat Database</h3>
                     <p>Kamu dapat mengelola Databasemu di sini.</p>
-                    <a href="#" class="btn">Lihat Database</a>
+                    <a class="btn" onclick="showModal()">Lihat Database</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Username dan Password, Sama Seperti Sebelumnya!</p>
+            <a href="<?=$fullHostWithoutPort.':'.$envVars['DB_PORT']?>" onclick="closeModal()">OK</a>
+        </div>
+    </div>
+
+    <script>
+        function showModal() {
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

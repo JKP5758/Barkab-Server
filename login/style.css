@@ -32,8 +32,16 @@ body {
     object-fit: cover;
 }
 
-.login-box {
-    
+.error-message {
+    color: #ff4d4d; /* Warna merah mencolok */
+    background-color: #ffe6e6; /* Latar belakang merah muda */
+    border: 1px solid #ff4d4d; /* Border merah */
+    padding: 10px; /* Spasi di dalam elemen */
+    border-radius: 5px; /* Membuat sudut membulat */
+    font-weight: bold; /* Teks tebal */
+    text-align: center; /* Teks di tengah */
+    width: 100%; /* Lebar penuh */
+    margin: 10px 0; /* Spasi di atas dan bawah */
 }
 
 .login-form {

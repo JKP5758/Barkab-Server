@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (isset($_POST['create'])) {
             $folderName = $_POST['folder_name'];
-            $newFolder = $directory . '\\' . $folderName;
+            $newFolder = $directory . '/' . $folderName;
             if (!file_exists($newFolder)) {
                 if (mkdir($newFolder)) {
                     header("Location: list.php?directory=" . urlencode($relativePath));
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (pathinfo($fileName, PATHINFO_EXTENSION) == '') {
                 $fileName .= '.txt';
             }
-            $newFile = $directory . '\\' . $fileName;
+            $newFile = $directory . '/' . $fileName;
             if (!file_exists($newFile)) {
                 if (file_put_contents($newFile, '') !== false) {
                     header("Location: list.php?directory=" . urlencode($relativePath));

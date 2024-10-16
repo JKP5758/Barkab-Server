@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validasi input
     if (empty($nis) || empty($password)) {
-        echo "Semua kolom harus diisi!";
+        $_SESSION['error_message'] = "Semua kolom harus diisi!";
+        header("Location: ../login/index.php");
         exit;
     }
 
@@ -42,17 +43,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['directory'] = $userDirectory; // Simpan direktori dalam sesi
             $_SESSION['db'] = $userDb; // Simpan nama database dalam sesi
             $_SESSION['nama'] = $userName; // Simpan nama pengguna dalam sesi
-            echo "Login berhasil! Selamat datang, " . htmlspecialchars($userName) . ".";
             // Redirect ke halaman list
             echo "<script>location.href='../view/dashboard';</script>";
         } else {
-            echo "NIS atau password salah!";
+            $_SESSION['error_message'] = "NIS atau password salah!";
+            header("Location: ../login/index.php");
         }
 
         // Tutup pernyataan
         mysqli_stmt_close($stmt);
     } else {
-        echo "Gagal menyiapkan pernyataan: " . mysqli_error($koneksi);
+        $_SESSION['error_message'] = "Gagal menyiapkan pernyataan: " . mysqli_error($koneksi);
+        header("Location: ../login/index.php");
     }
 }
 
