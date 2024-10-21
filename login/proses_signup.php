@@ -1,7 +1,7 @@
 <?php
 // Koneksi ke database
 require '../koneksi.php';
-$envVars = parse_ini_file('../../.env');
+$envVars = parse_ini_file('../.env');
 
 
 $koneksi = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
