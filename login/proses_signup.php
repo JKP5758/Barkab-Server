@@ -1,6 +1,8 @@
 <?php
 // Koneksi ke database
 require '../koneksi.php';
+$envVars = parse_ini_file('../../.env');
+
 
 $koneksi = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Cek apakah direktori sudah ada
-    $userDir = 'C:\\xampp\\htdocs\\server-data\\' . $directory;
+    $userDir = $envVars["ROOT_DIR"] . $directory;
     if (file_exists($userDir)) {
         echo "Error: Direktori sudah ada. Silakan pilih nama direktori lain.";
         exit;

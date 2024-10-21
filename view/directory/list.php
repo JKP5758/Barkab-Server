@@ -154,7 +154,7 @@ if (is_dir($directory)) {
                           </li>";
                 } else {
                     $fileExtension = strtolower(pathinfo($entry, PATHINFO_EXTENSION));
-                    $editableExtensions = ['txt', 'css', 'js', 'html', 'php', 'xml', 'json', 'md', 'log']; // Tambahkan ekstensi lain sesuai kebutuhan
+                    $editableExtensions = ['txt', 'css', 'js', 'html', 'php', 'xml', 'json', 'md', 'log', 'env', 'example']; // Tambahkan ekstensi lain sesuai kebutuhan
                     $mediaExtensions = ['png', 'jpg', 'jpeg', 'gif', 'mp4', 'mp3']; // Ekstensi media
         
                     // Check if the file is a media file

@@ -67,7 +67,7 @@ if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
                 echo "<form method='post'>";
                 
                 // Gunakan Ace Editor untuk file teks
-                if (in_array($fileExtension, ['txt', 'css', 'js', 'html', 'php', 'xml', 'json', 'md', 'log'])) {
+                if (in_array($fileExtension, ['txt', 'css', 'js', 'html', 'php', 'xml', 'json', 'md', 'log', 'env', 'example'])) {
                     echo "<div id='editor' style='height: 500px; width: 100%;'>" . htmlspecialchars($content) . "</div>";
                     echo "<textarea name='content' id='content' style='display:none;'>" . htmlspecialchars($content) . "</textarea>";
                 } else {
