@@ -19,9 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST['password']);
 
     // Validasi input
-    if (empty($nis) || empty($nama) || empty($directory) || empty($password)) {
-        echo "Semua kolom harus diisi!";
+    if (empty($nis) || empty($nama)) {
+        echo "Hanya Directory yang boleh Kosong!";
         exit;
+    }
+
+    if (empty($directory)){
+        $directory = $nis;
+    }
+
+    if (empty($password)){
+        $password = $nis;
     }
 
     // Cek apakah direktori sudah ada

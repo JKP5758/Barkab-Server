@@ -52,7 +52,7 @@
                     <a href="#">Lupa Password</a>
                 </div>
                 <div class="create-account">
-                    <p>Tidak Punya Akun? <a href="signup.php">Buat Akun</a></p>
+                    <p>Tidak Punya Akun? <a href="#">Buat Akun</a></p>
                 </div>
             </form>
         </div>

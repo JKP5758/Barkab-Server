@@ -34,12 +34,12 @@
                 </div>
                 <div class="input-group">
                     <label for="directory">Nama Direktori</label>
-                    <input type="text" id="directory" name="directory" required placeholder="">
+                    <input type="text" id="directory" name="directory"  placeholder="Default NIS">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
                     <div class="password-container">
-                        <input id="password-field" type="password" name="password" required placeholder="">
+                        <input id="password-field" type="password" name="password" placeholder="Default NIS">
                     </div>
                 </div>
                 
