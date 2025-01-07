@@ -43,6 +43,35 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
 <body>
     <a class='logout' href='../dashboard'>Kembali</a>
     <div class="container">
+    <?php if (isset($_GET['message'])): ?>
+        <div class="notification" id="notification">
+            <?= htmlspecialchars($_GET['message']); ?>
+        </div>
+    <?php endif; ?>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.style.display = 'block'; // Tampilkan notifikasi
+                notification.style.transition = 'opacity 1s ease'; // Tambahkan transisi
+
+                // Hilangkan notifikasi secara perlahan setelah 3 detik
+                setTimeout(() => {
+                    notification.style.opacity = '0'; // Kurangi opacity ke 0
+                    setTimeout(() => {
+                        notification.style.display = 'none'; // Sembunyikan elemen setelah transisi selesai
+                    }, 1000); // Waktu yang sama dengan durasi transisi
+                }, 3000);
+
+                // Hapus parameter "message" dari URL
+                const url = new URL(window.location.href);
+                url.searchParams.delete('message');
+                window.history.replaceState({}, document.title, url);
+            }
+        });
+    </script>
+
         <h1>Daftar Pengguna</h1>
         
         <!-- Form pencarian -->
@@ -76,7 +105,7 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
                         <td>{$row['directory']}</td>
                         <td>{$row['db']}</td>
                         <td>
-                            <button class='edit-btn'>Edit</button>
+                            <a href='edit.php?nis={$row['nis']}' class='edit-btn'>Edit</a>
                             <button class='delete-btn'>Hapus</button>
                         </td>
                     </tr>";
