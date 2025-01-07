@@ -131,6 +131,10 @@ input[type="file"] {
     background-color: #f0f0f0;
 }
 
+.lato{
+    font-family: "Lato";
+}
+
 .name-file-folder {
     display: flex;
     /* justify-content: space-between; */

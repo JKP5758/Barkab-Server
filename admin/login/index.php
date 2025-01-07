@@ -1,10 +1,10 @@
 <?php
     session_start();
-    require "../koneksi.php";
-    require "../config.php";
+    require "../../koneksi.php";
+    require "../../config.php";
 
-    if (isset($_SESSION['nis'])) {
-        echo "<script>alert('Anda Telah Login');window.location='../view/dashboard/';</script>";
+    if ($_SESSION['status'] == 'admin') {
+        echo "<script>location.href='../view/dashboard';</script>";
     }
 
     
@@ -23,7 +23,7 @@
     <div class="login-container">
         <div class="login-box">
             <div class="image-container">
-                <img src="../login/images/hd4.jpg" alt="Classroom">
+                <img src="../login/images/hd4.png" alt="Classroom">
             </div>
             <form class="login-form" action="proses_login.php" method="post">
                 <h2>Login</h2>
@@ -37,8 +37,8 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="nis">NIS</label>
-                    <input type="text" id="nis" name="nis" required placeholder="">
+                    <label for="user">User</label>
+                    <input type="text" id="user" name="user" required placeholder="">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>

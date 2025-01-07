@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $grantSql = "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, CREATE VIEW, EVENT, TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON `$dbName`.* TO '$nis'@'%'";
                         if (mysqli_query($koneksi, $grantSql)) {
                             echo "Pendaftaran berhasil, direktori dan database telah dibuat!";
-                            header("Location: index.php");
+                            header("Location: ../login");
                         } else {
                             echo "Pendaftaran berhasil, tapi gagal memberikan hak akses database.";
                         }

@@ -1,17 +1,17 @@
 <?php
 session_start();
-$envVars = parse_ini_file('../../.env');
+$envVars = parse_ini_file('../../../.env');
 
 // Periksa apakah pengguna sudah login
-if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
+if (!isset($_SESSION['status'])) {
     header("Location: ../../login");
     exit;
 }
 
 // Tentukan direktori awal (root)
-$rootDirectory = $envVars["ROOT_DIR"];
+$rootDirectory = $envVars["ADMIN_DIR"];
 // Menggunakan direktori dari sesi sebagai direktori default
-$defaultDir = $_SESSION['directory'];
+$defaultDir = "Barkab-Server-Storage";
 
 // Menggunakan direktori dari parameter GET jika tersedia, jika tidak gunakan default
 $relativePath = isset($_GET['directory']) ? $_GET['directory'] : $defaultDir;
@@ -41,7 +41,7 @@ if (strpos($directory, $rootDirectory . $defaultDir) !== 0) {
 if (is_dir($directory)) {
     echo "<a class='logout' href='../dashboard'>Kembali</a>";
 
-    echo "<h1>Daftar File dan Direktori</h1>";
+    echo "<h1>Daftar File dan Direktori Admin</h1>";
     
     echo "<p>Direktori saat ini: " . htmlspecialchars($relativePath) . "</p>";
 
@@ -130,9 +130,9 @@ if (is_dir($directory)) {
         // Menambahkan link "../" untuk kembali ke direktori sebelumnya
         $parentDir = dirname($relativePath);
         if ($parentDir != $relativePath && $parentDir != '.') {
-            echo "<li class='parent-dir'>
+            echo "<li class='parent-dir lato'>
                     <div class='item-wrapper' style='margin-left: 0;'>
-                        <a href='list.php?directory=" . urlencode($parentDir) . "' class='item-link'>
+                        <a href='list-admin.php?directory=" . urlencode($parentDir) . "' class='item-link'>
                             <div class='name-file-folder'>
                                 <img src='./img/folder-out.png' alt='gambar folder' srcset=''>
                                 <strong>../</strong> 
@@ -180,10 +180,10 @@ if (is_dir($directory)) {
                     echo "<li>
                             <div class='item-wrapper'>
                                 <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
-                                <a href='list.php?directory=" . urlencode($entryRelativePath) . "' class='item-link'>
+                                <a href='list-admin.php?directory=" . urlencode($entryRelativePath) . "' class='item-link'>
                                     <div class='name-file-folder'>
                                         <img src='./img/folder-kosong.png' alt='gambar folder' srcset=''>
-                                        <strong>$entry</strong>
+                                        <strong class='lato'>$entry</strong>
                                     </div>
                                 </a>
                                 $ukuran
@@ -254,7 +254,7 @@ if (is_dir($directory)) {
                         echo "<li>
                                 <div class='item-wrapper'>
                                     <input type='checkbox' name='selected[]' value='" . htmlspecialchars($entryRelativePath) . "' form='fileForm' class='item-checkbox'" . (in_array($entryRelativePath, $selectedItems) ? " checked" : "") . ">
-                                    <a href='edit.php?file=" . urlencode($entryRelativePath) . "' class='item-link'>
+                                    <a href='edit-admin.php?file=" . urlencode($entryRelativePath) . "' class='item-link'>
                                         <div class='name-file-folder'>
                                             <img src='./img/file.png' alt='gambar file' srcset=''>
                                             <span>$entry</span> 
@@ -320,9 +320,9 @@ if (is_dir($directory)) {
         echo "Tidak bisa membuka direktori.";
     }
 } else {
-    echo "Direktori tidak ditemukan."."\n";
-    echo $defaultDir."\n";
-    echo $directory."\n";
+    echo "Direktori tidak ditemukan.";
+    echo $defaultDir;
+    echo $directory;
 }
 
 // JavaScript untuk mengubah teks tombol download dan menampilkan tombol hapus

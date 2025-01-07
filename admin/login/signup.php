@@ -1,10 +1,11 @@
 <?php
     session_start();
-    require "../koneksi.php";
+    require "../../koneksi.php";
 
-    if (!isset($_SESSION['status'])) {
+    if ($_SESSION['status']== 'admin') {
+    } else {
         echo "<script>location.href='../login';</script>";
-    }   
+    }
 ?>
 
 <!doctype html>
@@ -25,28 +26,24 @@
             <form class="login-form" action="proses_signup.php" method="post"> <!-- Menggunakan kelas yang sama -->
                 <h2>Sign Up</h2> <!-- Mengubah judul untuk konsistensi -->
                 <div class="input-group">
-                    <label for="nis">NIS</label>
-                    <input type="text" id="nis" name="nis" required placeholder="">
+                    <label for="user">Username</label>
+                    <input type="text" id="user" name="user" required placeholder="">
                 </div>
                 <div class="input-group">
                     <label for="nama">Nama</label>
                     <input type="text" id="nama" name="nama" required placeholder="">
                 </div>
                 <div class="input-group">
-                    <label for="directory">Nama Direktori</label>
-                    <input type="text" id="directory" name="directory"  placeholder="Default NIS">
-                </div>
-                <div class="input-group">
                     <label for="password">Password</label>
                     <div class="password-container">
-                        <input id="password-field" type="password" name="password" placeholder="Default NIS">
+                        <input id="password-field" type="password" name="password" placeholder="Default Username">
                     </div>
                 </div>
                 
                 <button type="submit" class="btn">Sign Up</button>
 
                 <div class="create-account">
-                    <p class="text-center">Sudah Punya Akun? <a href="../login">Login</a></p>
+                    <p class="text-center">Sudah Punya Akun? <a href="../login/">Login</a></p>
                 </div>
             </form>
         </div>

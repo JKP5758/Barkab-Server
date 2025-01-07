@@ -1,15 +1,12 @@
 <?php
 
 session_start();
-$envVars = parse_ini_file('../../.env');
-$rootDirectory = $envVars['ROOT_DIR'];
+$envVars = parse_ini_file('../../../.env');
+$rootDirectory = $envVars['ADMIN_DIR'];
 
 
 // Periksa apakah pengguna sudah login
-if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
-    header("Location: ../../login");
-    exit;
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +23,7 @@ if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
 <div class="container">
     <header>
         <h1>Text Editor</h1>
-        <a class='logout' href='list.php?directory=<?php echo urlencode(dirname($relativePath)); ?>'>Kembali ke Daftar File</a>
+        <a class='logout' href='list-admin.php?directory=<?php echo urlencode(dirname($relativePath)); ?>'>Kembali ke Daftar File</a>
     </header>
 
     <div class="editor-wrapper">
