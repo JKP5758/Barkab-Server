@@ -74,13 +74,16 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
 
         <h1>Daftar Pengguna</h1>
         
-        <!-- Form pencarian -->
-        <form class="serch" method="POST">
-        <div class="search-container">
-            <input type="text" name="search" placeholder="Cari pengguna...">
-            <button type="submit">Cari</button>
+        <div class="tambah-serch">
+            <a class="button" href="../../../login/signup.php">Tambah User</a>
+            <!-- Form pencarian -->
+            <form class="serch" method="POST">
+                <div class="search-container">
+                    <input type="text" name="search" placeholder="Cari pengguna...">
+                    <button type="submit">Cari</button>
+                </div>
+            </form>
         </div>
-        </form>
 
         <table>
         <thead>
@@ -106,7 +109,7 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
                         <td>{$row['db']}</td>
                         <td>
                             <a href='edit.php?nis={$row['nis']}' class='edit-btn'>Edit</a>
-                            <button class='delete-btn'>Hapus</button>
+                            <a href='hapus.php?nis={$row['nis']}' class='delete-btn'>Hapus</a>
                         </td>
                     </tr>";
                 }

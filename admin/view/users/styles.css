@@ -6,6 +6,10 @@ body {
     background-color: #f9f9f9;
 }
 
+a {
+    text-decoration: none;
+}
+
 .container {
     max-width: 900px;
     margin: 25px auto;
@@ -43,16 +47,15 @@ h1 {
 
 /* Serch */
 
-.serch{
-    width: 100%;
+.tambah-serch {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: end;
-    padding: 5px;
+    margin: 0 5px;
 }
 
-.serch button{
-    margin: 0 10px;
+.serch{
+    padding: 5px;
 }
 
 .search-container {
@@ -84,7 +87,7 @@ h1 {
     font-style: italic;
 }
 
-.search-container button {
+.search-container button , .button{
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
@@ -145,6 +148,7 @@ tbody tr:hover {
 tbody td {
     padding: 12px;
     font-size: 14px;
+    height: 30px;
     border-bottom: 1px solid #ddd;
 }
 

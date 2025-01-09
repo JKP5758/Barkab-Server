@@ -53,12 +53,13 @@ $userData = mysqli_fetch_assoc($userQuery);
                 <input type="password" id="password" name="password" placeholder="(kosongkan jika tidak ingin mengubah)">
             </div>
             <div class="form-group">
+                <input type="hidden" name="oldDir" value="<?php echo $userData['directory']; ?>">   
                 <label for="directory">Directory:</label>
                 <input type="text" id="directory" name="directory" value="<?php echo $userData['directory']; ?>">
             </div>
             <div class="form-group">
                 <label for="db">Database:</label>
-                <input type="text" id="db" name="db" value="<?php echo $userData['db']; ?>">
+                <input type="text" id="db" name="db" value="<?php echo $userData['db']; ?>" readonly>
             </div>
             <div class="form-actions">
                 <button type="submit" class="save-btn">Simpan</button>
