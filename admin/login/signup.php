@@ -21,7 +21,7 @@
     <div class="login-container"> <!-- Menggunakan kelas yang sama -->
         <div class="login-box">
             <div class="image-container">
-                <img src="../login/images/hd4.jpg" alt="Classroom">
+                <img src="../login/images/hd4.png" alt="Classroom">
             </div>
             <form class="login-form" action="proses_signup.php" method="post"> <!-- Menggunakan kelas yang sama -->
                 <h2>Sign Up</h2> <!-- Mengubah judul untuk konsistensi -->

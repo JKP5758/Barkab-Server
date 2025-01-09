@@ -6,7 +6,7 @@ $envVars = parse_ini_file('../../../.env');
 if (!isset($_SESSION['status'])) {
     header("Location: ../../login");
     exit;
-}
+} 
 
 // Koneksi ke database
 require '../../../koneksi.php';
@@ -42,7 +42,7 @@ $userData = mysqli_fetch_assoc($userQuery);
             <input type="hidden" name="nis" value="<?php echo $userData['nis']; ?>">
             <div class="form-group">
                 <label for="nis_change">NIS:</label>
-                <input type="text" id="nis_change" name="nis_change" value="<?php echo $userData['nis']; ?>" required>
+                <input type="text" id="nis_change" name="nis_change" value="<?php echo $userData['nis']; ?>" readonly>
             </div>
             <div class="form-group">
                 <label for="nama">Nama:</label>
