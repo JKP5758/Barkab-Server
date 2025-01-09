@@ -10,6 +10,8 @@ if (!isset($_SESSION['nis']) || !isset($_SESSION['directory'])) {
     header("Location: ../../login");
     exit;
 }
+
+$relativePath = $_GET['file'];
 ?>
 
 <!DOCTYPE html>

@@ -22,7 +22,7 @@ $hostWithoutPort = explode(':', $host)[0];
 // Gabungkan protokol dan host tanpa port
 $fullHostWithoutPort = $protocol . $hostWithoutPort;
 
-
+$relativePath = $_GET['file'];
 ?>
 
 <!DOCTYPE html>

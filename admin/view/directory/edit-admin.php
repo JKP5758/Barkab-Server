@@ -6,7 +6,12 @@ $rootDirectory = $envVars['ADMIN_DIR'];
 
 
 // Periksa apakah pengguna sudah login
+if (!isset($_SESSION['status'])) {
+    header("Location: ../login/login.php");
+    exit;
+}
 
+$relativePath = $_GET['file'];
 ?>
 
 <!DOCTYPE html>

@@ -65,7 +65,7 @@ if (is_dir($directory)) {
             <input type='hidden' name='directory' value='" . htmlspecialchars($relativePath) . "'>
             
             <label for='zip-upload' class='custom-file-upload'>
-                Pilih File ZIP
+                Pilih ZIP
             </label>
             <input id='zip-upload' type='file' name='zipfile' accept='.zip'>
             
@@ -131,7 +131,7 @@ if (is_dir($directory)) {
         $parentDir = dirname($relativePath);
         if ($parentDir != $relativePath && $parentDir != '.') {
             echo "<li class='parent-dir lato'>
-                    <div class='item-wrapper' style='margin-left: 0;'>
+                    <div class='item-wrapper' style='margin: 0 ; max-width: 100%;'>
                         <a href='list-admin.php?directory=" . urlencode($parentDir) . "' class='item-link'>
                             <div class='name-file-folder'>
                                 <img src='./img/folder-out.png' alt='gambar folder' srcset=''>
