@@ -86,6 +86,15 @@ input[type="file"] {
     font-size: 14px;
   }
 
+  .name-file-folder span {
+    white-space: nowrap;         /* Mencegah teks membungkus ke baris berikutnya */
+    overflow: hidden;            /* Menyembunyikan teks yang melampaui batas */
+    text-overflow: ellipsis;     /* Menambahkan "..." di akhir teks */
+    max-width: 100%;             /* Pastikan elemen ini tidak melampaui container */
+    display: inline-block;       /* Agar teks tetap di dalam elemen induk */
+}
+
+
   /* Gaya tombol submit */
   .custom-submit-button {
     display: inline-block;
@@ -108,8 +117,10 @@ input[type="file"] {
     align-items: center;
     flex: 1;
     padding: 0 15px 0 0;
-    margin-left: 5px;
+    margin: 5px;
     border-radius: 5px;
+    max-width: 100%;          /* Sesuaikan dengan ukuran kontainer yang diinginkan */
+    overflow: hidden; 
 }
 
 .item-checkbox {
@@ -129,6 +140,10 @@ input[type="file"] {
 
 .item-wrapper:hover{
     background-color: #f0f0f0;
+}
+
+.lato{
+    font-family: "Lato";
 }
 
 .name-file-folder {
@@ -164,8 +179,8 @@ input[type="file"] {
 }
 
 button img.tambah {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     padding: 5px;
     border-radius: 5px;
     background-color: #ebebeb;
@@ -226,6 +241,8 @@ input[type="submit"] {
 
     .item-wrapper {
         padding: 10px;
+        max-width: 95%;          /* Sesuaikan dengan ukuran kontainer yang diinginkan */
+        overflow: hidden; 
     }
 
     .action {
