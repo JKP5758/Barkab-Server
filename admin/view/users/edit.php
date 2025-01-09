@@ -41,6 +41,7 @@ $userData = mysqli_fetch_assoc($userQuery);
         <h2>Edit User</h2>
         <form method="POST" action="proses_edit.php">
             <input type="hidden" name="nis" value="<?php echo $userData['nis']; ?>">
+            <input type="hidden" name="oldDir" value="<?php echo $userData['directory']; ?>">
             <div class="form-group">
                 <label for="nis_change">NIS:</label>
                 <input type="text" id="nis_change" name="nis_change" value="<?php echo $userData['nis']; ?>" readonly>
@@ -54,9 +55,8 @@ $userData = mysqli_fetch_assoc($userQuery);
                 <input type="password" id="password" name="password" placeholder="(kosongkan jika tidak ingin mengubah)">
             </div>
             <div class="form-group">
-                <input type="hidden" name="oldDir" value="<?php echo $userData['directory']; ?>">   
                 <label for="directory">Directory:</label>
-                <input type="text" id="directory" name="directory" value="<?php echo $userData['directory']; ?>">
+                <input type="text" id="directory" name="directory" value="<?php echo $userData['directory']; ?>" required>
             </div>
             <div class="form-group">
                 <label for="db">Database:</label>

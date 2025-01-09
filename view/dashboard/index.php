@@ -47,7 +47,7 @@ $fullHostWithoutPort = $protocol . $hostWithoutPort;
                 <div class="card-content">
                     <h3>Lihat Web</h3>
                     <p>Kamu dapat Melihat Web buatan mu di sini.</p>
-                    <a href="<?=$fullHostWithoutPort.':'.$envVars['HOST_PORT'].'/'.$_SESSION['nis']?>" class="btn">Kunjungi Web</a>
+                    <a href="<?=$fullHostWithoutPort.':'.$envVars['HOST_PORT'].'/'.$_SESSION['directory']?>" class="btn">Kunjungi Web</a>
                 </div>
             </div>
             <div class="card">
