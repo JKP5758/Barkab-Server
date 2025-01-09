@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1deb3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Waktu pembuatan: 21 Okt 2024 pada 05.17
--- Versi server: 8.0.39-1
+-- Host: localhost
+-- Waktu pembuatan: 09 Jan 2025 pada 05.34
+-- Versi server: 8.0.40-0ubuntu0.24.10.1
 -- Versi PHP: 8.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,6 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int NOT NULL,
+  `user` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nama` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `status` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `admins`
+--
+
+INSERT INTO `admins` (`id`, `user`, `nama`, `password`, `status`) VALUES
+(2, 'jkp', 'Joko Purnomo', '$2y$10$./Ql.O4tBkDd.roPUUjhoOtMDEt1j2QnUiyNO2dMV6yf9IinzZTAm', 'admin'),
+(3, 'barkab', 'SMK Muhammadiyah 04 Boyolali', '$2y$10$MWbMbj0B5z0tpgqboXvgo.LVzRnpoXnYR3K0m5cUbOdheSTGznziK', 'admin');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -36,23 +58,30 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
---
-
-INSERT INTO `users` (`nis`, `nama`, `password`, `directory`, `db`) VALUES
-(7000, 'Beta', '$2y$10$cFyvvm4SyNBBxzBn31a84uzmmb8y9HKsw.3SgkOSrfTDByvfytuV2', '7000', 'db_barkab-server_7000'),
-(7001, 'Tes1', '$2y$10$mP6tHyNXAdbF1cAClbYGVuxMs3pxf3RTyK7WSQVzhLiUZBvYGH4ES', '7001', 'db_barkab-server_7001'),
-(7341, 'Joko Purnomo', '$2y$10$zWYCjUrbn5SPIr.uLkg.AeU2EihOnmhapdv.gfd1WG0sX514swFzq', '7341', 'db_barkab-server_7341');
-
---
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`nis`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

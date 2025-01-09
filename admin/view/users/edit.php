@@ -33,6 +33,7 @@ $userData = mysqli_fetch_assoc($userQuery);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../directory/img/logo-smk.png" type="image/png">
 </head>
 <body>
     <div class="edit-container">

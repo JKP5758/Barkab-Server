@@ -39,6 +39,7 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Pengguna</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../directory/img/logo-smk.png" type="image/png">
 </head>
 <body>
     <a class='logout' href='../dashboard'>Kembali</a>
@@ -109,7 +110,7 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
                         <td>{$row['db']}</td>
                         <td>
                             <a href='edit.php?nis={$row['nis']}' class='edit-btn'>Edit</a>
-                            <a href='hapus.php?nis={$row['nis']}' class='delete-btn'>Hapus</a>
+                            <a onclick='showModal(\"hapus.php?nis={$row['nis']}\")' class='delete-btn'>Hapus</a>
                         </td>
                     </tr>";
                 }
@@ -120,5 +121,32 @@ $usersQuery = mysqli_query($koneksi, "SELECT nis, nama, directory, db FROM `user
         </tbody>
     </table>
     </div>
+    
+    <!-- Modal -->
+    <div id="infoModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Yakin ingin menghapus?</p>
+            <p>Database dan directory akan hilang!</p>
+            <a id="confirmDelete" class='delete-btn' href="#">Hapus</a>
+            <a href="#" onclick="closeModal()">Batal</a>
+        </div>
+    </div>
+
+    <script>
+        function showModal(deleteUrl) {
+            document.getElementById('infoModal').style.display = 'flex';
+            document.getElementById('confirmDelete').setAttribute('data-url', deleteUrl);
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        document.getElementById('confirmDelete').addEventListener('click', function() {
+            const deleteUrl = this.getAttribute('data-url');
+            window.location.href = deleteUrl; // Arahkan ke hapus.php
+        });
+    </script>
 </body>
 </html>
